@@ -38,13 +38,16 @@ if($_POST){
     $product->name = $_POST['name'];
     $product->price = $_POST['price'];
     $product->description = $_POST['description'];
-    $product->category_id = $_POST['category_id'];
+    $image = !empty($_FILES["image"]["name"])
+    ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : "";
+    $product->image = $image;
   
     // update the product
     if($product->update()){
         echo "<div class='alert alert-success alert-dismissable'>";
             echo "Product was updated.";
         echo "</div>";
+        echo $product->uploadPhoto();
     }
   
     // if unable to update the product, tell the user
@@ -56,7 +59,7 @@ if($_POST){
 }
 ?>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>"  method="post" enctype="multipart/form-data">
     <table class='table table-hover table-responsive table-bordered'>
 
         <tr>
@@ -76,7 +79,17 @@ if($_POST){
 
         <tr>
             <td>Category</td>
-            <td>
+        <td>
+            
+        <tr>
+            <td>Image</td>
+            <tr>
+            <td><input type="file" name="image" /></td>
+            </tr>
+            <td><img src='uploads/<?php echo $product->image; ?>' style='width:300px;' /></td>
+        </tr>
+                
+        
             <?php
 $stmt = $category->read();
 
