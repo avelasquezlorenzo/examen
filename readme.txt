@@ -14,3 +14,7 @@ en la 139 ($stmt->bindParam(":image", $this->image);), en el update_product.php 
 el uploadPhoto (echo $product->uploadPhoto();), en la linea 64 se añade el (enctype="multipart/form-data") y posteriormente desde la linea 86 el campo de imagen con la imagen anterior, y un input para añadir ua nueva imagen,
 de esta manera se sube la nueva foto, y cambia su valor en la base de datos, de igual manera se podría eliminar la imagen anterior para no tener espacio de memoria
 desperdiciado.
+
+repo git https://github.com/avelasquezlorenzo/examen
+
+Ejecutar los comandos sql del archivo sql-data
